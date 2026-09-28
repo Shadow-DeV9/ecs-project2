@@ -12,3 +12,9 @@ jobs:
     steps:
       - name: Say hello
         run: echo "GitHub Actions is working!"
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: build docker image
+        run: docker build -t ecs-health-app:latest ./app
