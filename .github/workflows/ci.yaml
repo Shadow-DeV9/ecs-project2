@@ -34,8 +34,5 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      #- name: Push Docker image to ECR
-        #run: |
-          #aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 343918153740.dkr.ecr.eu-north-1.amazonaws.com
-          #docker tag ecs-health-app:latest 343918153740.dkr.ecr.eu-north-1.amazonaws.com/getsugatensho:latest
-          #docker push 343918153740.dkr.ecr.eu-north-1.amazonaws.com/getsugatensho:latest
+      - name: Push Docker image to ECR
+        run: docker tag ecs-health-app:latest 343918153740.dkr.ecr.eu-north-1.amazonaws.com/getsugatensho:latest
