@@ -1,9 +1,14 @@
+```yaml
 name: CI
 
 on:
   push:
     branches:
       - master
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build:
@@ -14,7 +19,14 @@ jobs:
         run: echo "GitHub Actions is working!"
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: build docker image
+      - name: Build Docker image
         run: docker build -t ecs-health-app:latest ./app
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
+        with:
+          role-to-assume: arn:aws:iam::343918153740:role/github-actions-oidc-role
+          role-session-name: github-actions
+          aws-region: eu-north-1
