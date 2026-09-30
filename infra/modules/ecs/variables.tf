@@ -32,3 +32,8 @@ variable "target_group_arn" {
   description = "The ARN of the ALB target group"
   type        = string
 }
+
+variable "image_tag" {
+  description = "The Docker image tag to deploy"
+  type        = string
+}

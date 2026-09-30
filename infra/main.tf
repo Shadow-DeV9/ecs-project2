@@ -15,6 +15,7 @@ module "ecs" {
   source = "./modules/ecs"
 
   ecr_uri               = module.ecr.uri
+  image_tag             = var.image_tag
   execution_role_arn    = module.iam.role_arn
   vpc_id                = module.vpc.vpc_id
   alb_security_group_id = module.alb.alb_security_group_id

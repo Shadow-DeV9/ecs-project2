@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode([
     {
       name      = "ecs-health-app"
-      image     = var.ecr_uri
+      image     = "${var.ecr_uri}:${var.image_tag}"
       essential = true
 
       portMappings = [
