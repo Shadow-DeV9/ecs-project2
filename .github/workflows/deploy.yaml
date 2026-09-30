@@ -16,32 +16,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name : Checkout code
-          uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v6
 
-        - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
-          with:
-            role-to-assume: arn:aws:iam::343918153740:role/github-actions-oidc-role
-            role-session-name: github-actions
-            aws-region: eu-north-1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
+        with:
+          role-to-assume: arn:aws:iam::343918153740:role/github-actions-oidc-role
+          role-session-name: github-actions
+          aws-region: eu-north-1
 
-        - name: Setup Terraform
-          uses: hashicorp/setup-terraform@v2
-          with:
-            terraform_version: 1.15.7
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.15.7
 
-        - name: Terraform Init
-          working-directory: ./infra
-          run: terraform init
+      - name: Terraform Init
+        working-directory: ./infra
+        run: terraform init
 
-        - name: Terraform Plan
-          working-directory: ./infra
-          run: terraform plan -var="image_tag=${{ github.event.workflow_run.head_sha }}"
+      - name: Terraform Plan
+        working-directory: ./infra
+        run: terraform plan -var="image_tag=${{ github.event.workflow_run.head_sha }}"
 
-        - name: Terraform Apply
-          working-directory: ./infra
-          run: terraform apply -auto-approve -var="image_tag=${{ github.event.workflow_run.head_sha }}"
-        
-        - name: Health Check
-          run: curl --fail https://tm.shoshin.org.uk/health
+      - name: Terraform Apply
+        working-directory: ./infra
+        run: terraform apply -auto-approve -var="image_tag=${{ github.event.workflow_run.head_sha }}"
+
+      - name: Health Check
+        run: |
+          for i in {1..12}; do
+            if curl --fail https://tm.shoshin.org.uk/health; then
+              echo "Health check passed!"
+              exit 0
+            fi
+
+            echo "Application not ready yet. Waiting 15 seconds..."
+            sleep 15
+          done
+
+          echo "Health check failed after waiting."
+          exit 1
