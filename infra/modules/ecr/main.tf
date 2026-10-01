@@ -7,3 +7,5 @@ resource "aws_ecr_repository" "main" {
     scan_on_push = true
   }
 }
+
+# harmless push to trigger the scan on push
