@@ -1,0 +1,438 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --background: #080810;
+    --card: #11111f;
+    --pink: #ff3da8;
+    --cyan: #39f5ff;
+    --text: #f2f2fa;
+    --muted: #a1a1b5;
+    --border: #292940;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 80% 5%, #25102e 0%, transparent 35%),
+        radial-gradient(ellipse at 10% 55%, #071c2b 0%, transparent 35%),
+        var(--background);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 8%;
+    background: #080810ed;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.logo span,
+h1 span,
+h2 span,
+footer span {
+    color: var(--pink);
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+.nav-links a {
+    color: var(--muted);
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--cyan);
+}
+
+.status {
+    color: var(--cyan);
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+main {
+    width: min(1100px, 84%);
+    margin: 0 auto;
+}
+
+.hero {
+    padding: 110px 0 120px;
+    max-width: 900px;
+}
+
+.eyebrow {
+    color: var(--cyan);
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Orbitron', sans-serif;
+    line-height: 1.35;
+}
+
+h1 {
+    font-size: clamp(2.7rem, 7vw, 5.4rem);
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-size: clamp(1.65rem, 4vw, 2.5rem);
+    margin-bottom: 25px;
+}
+
+h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.intro {
+    max-width: 700px;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+}
+
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.hero-tags span {
+    padding: 6px 10px;
+    color: var(--cyan);
+    background: #39f5ff0b;
+    border: 1px solid #39f5ff44;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.button {
+    display: inline-block;
+    padding: 13px 22px;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    transition: 0.25s ease;
+}
+
+.button:hover {
+    color: var(--background);
+    background: var(--cyan);
+    box-shadow: 0 0 25px #39f5ff55;
+}
+
+.section {
+    padding: 65px 0 80px;
+    border-top: 1px solid var(--border);
+}
+
+.section-intro {
+    max-width: 780px;
+    color: var(--muted);
+    margin-bottom: 35px;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    padding: 27px 23px;
+    background: linear-gradient(145deg, #141423, #0d0d18);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--pink);
+    transition: 0.25s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--cyan);
+    box-shadow: 0 8px 30px #39f5ff12;
+}
+
+.tag {
+    display: block;
+    color: var(--cyan);
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 22px;
+}
+
+.project-card p,
+.module-item p,
+.pipeline-step p,
+.architecture-node p,
+.info-panel p {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* Architecture flow */
+
+.architecture {
+    max-width: 760px;
+    margin: 40px auto 25px;
+}
+
+.architecture-node {
+    position: relative;
+    padding: 25px 28px;
+    background: linear-gradient(100deg, #121222, #0d101a);
+    border: 1px solid #30304a;
+    border-left: 3px solid var(--cyan);
+    transition: 0.25s ease;
+}
+
+.architecture-node:hover {
+    border-color: var(--pink);
+    box-shadow: 0 0 24px #ff3da812;
+}
+
+.node-number {
+    display: block;
+    color: var(--pink);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+}
+
+.architecture-node h3 {
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.flow-arrow {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    font-size: 1.5rem;
+    text-shadow: 0 0 12px var(--cyan);
+}
+
+.architecture-note {
+    padding: 18px 22px;
+    color: var(--muted);
+    background: #ff3da809;
+    border-left: 2px solid var(--pink);
+    font-size: 0.85rem;
+}
+
+/* Terraform modules */
+
+.module-list {
+    display: grid;
+    gap: 14px;
+}
+
+.module-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    padding: 23px;
+    background: #11111f;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s ease;
+}
+
+.module-item:hover {
+    border-color: var(--cyan);
+}
+
+.module-index {
+    flex-shrink: 0;
+    color: var(--pink);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+}
+
+.module-item h3 {
+    color: var(--cyan);
+    font-size: 0.9rem;
+}
+
+/* CI/CD pipeline */
+
+.pipeline {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.pipeline-step {
+    padding: 22px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--cyan);
+}
+
+.pipeline-step>span {
+    display: inline-block;
+    color: var(--pink);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.pipeline-step h3 {
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+}
+
+.pipeline-step p {
+    font-size: 0.82rem;
+}
+
+.info-panel {
+    margin-top: 25px;
+    padding: 27px;
+    background: #11111f;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--pink);
+}
+
+.info-panel h3 {
+    color: var(--cyan);
+    margin-bottom: 12px;
+}
+
+.info-panel p+p {
+    margin-top: 15px;
+}
+
+/* Footer */
+
+footer {
+    padding: 28px 0;
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+}
+
+footer p+p {
+    margin-top: 5px;
+    font-size: 0.6rem;
+}
+
+/* Responsive layout */
+
+@media (max-width: 950px) {
+    header {
+        flex-wrap: wrap;
+        padding: 18px 6%;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        gap: 16px;
+    }
+
+    main {
+        width: 88%;
+    }
+
+    .pipeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .hero {
+        padding: 75px 0 85px;
+    }
+
+    h1 {
+        letter-spacing: -1px;
+    }
+
+    .project-grid,
+    .pipeline {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 50px 0 60px;
+    }
+
+    .architecture-node {
+        padding: 20px;
+    }
+
+    .module-item {
+        gap: 14px;
+        padding: 18px;
+    }
+
+    .status {
+        font-size: 0.6rem;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .nav-links a {
+        font-size: 0.72rem;
+    }
+
+    footer {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+}

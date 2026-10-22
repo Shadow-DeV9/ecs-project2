@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A hands-on DevOps project deploying a containerised application to AWS ECS Fargate using Terraform and GitHub Actions.">
+    <title>Shadow | AWS ECS DevOps Project</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="/" class="logo">SHADOW<span>.</span></a>
+
+        <nav class="nav-links">
+            <a href="#overview">Overview</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#pipeline">CI/CD</a>
+            <a href="#security">Security</a>
+        </nav>
+
+        <span class="status">● PROJECT DEPLOYED</span>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <p class="eyebrow">// DEVOPS ENGINEERING / PROJECT 001</p>
+
+            <h1>DEPLOYING<br>TO THE <span>CLOUD.</span></h1>
+
+            <p class="intro">
+                A containerised web application deployed on AWS ECS Fargate,
+                with modular Terraform infrastructure, automated CI/CD,
+                HTTPS and cloud monitoring.
+            </p>
+
+            <div class="hero-tags">
+                <span>AWS</span>
+                <span>TERRAFORM</span>
+                <span>DOCKER</span>
+                <span>GITHUB ACTIONS</span>
+            </div>
+
+            <a href="#overview" class="button">EXPLORE THE PROJECT ↓</a>
+        </section>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="section">
+            <p class="eyebrow">// 01 — MISSION BRIEF</p>
+            <h2>PROJECT <span>OVERVIEW</span></h2>
+
+            <p class="section-intro">
+                The goal was to build and deploy a web application using
+                cloud infrastructure that is repeatable, automated and
+                easier to maintain than a manually configured environment.
+            </p>
+
+            <div class="project-grid">
+                <article class="project-card">
+                    <span class="tag">COMPUTE</span>
+                    <h3>ECS FARGATE</h3>
+                    <p>
+                        Runs the containerised application without requiring
+                        me to manage the underlying EC2 servers.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <span class="tag">INFRASTRUCTURE</span>
+                    <h3>TERRAFORM</h3>
+                    <p>
+                        Provisions AWS resources as code using a modular
+                        structure with reusable infrastructure components.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <span class="tag">DELIVERY</span>
+                    <h3>CI/CD PIPELINE</h3>
+                    <p>
+                        Uses GitHub Actions to automate the application
+                        image build, publishing and deployment workflow.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE -->
+        <section id="architecture" class="section">
+            <p class="eyebrow">// 02 — SYSTEM ARCHITECTURE</p>
+            <h2>HOW IT <span>CONNECTS</span></h2>
+
+            <p class="section-intro">
+                A request travels from the browser through DNS and the
+                load balancer before reaching a healthy application task.
+            </p>
+
+            <div class="architecture">
+                <div class="architecture-node">
+                    <span class="node-number">01</span>
+                    <h3>USER</h3>
+                    <p>Browser sends an HTTPS request.</p>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="architecture-node">
+                    <span class="node-number">02</span>
+                    <h3>ROUTE 53 + ACM</h3>
+                    <p>DNS directs the domain to the load balancer.
+                        ACM supplies its TLS certificate.</p>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="architecture-node">
+                    <span class="node-number">03</span>
+                    <h3>APPLICATION LOAD BALANCER</h3>
+                    <p>Accepts HTTPS traffic and forwards requests
+                        to the target group over HTTP on port 3000.</p>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="architecture-node">
+                    <span class="node-number">04</span>
+                    <h3>ECS FARGATE</h3>
+                    <p>Runs two desired application tasks in separate
+                        public subnets across two Availability Zones.</p>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="architecture-node">
+                    <span class="node-number">05</span>
+                    <h3>NODE.JS APPLICATION</h3>
+                    <p>Serves the portfolio page and responds to
+                        health checks at /health.</p>
+                </div>
+            </div>
+
+            <p class="architecture-note">
+                Supporting services: Amazon ECR stores the Docker image,
+                CloudWatch collects container logs, and security groups
+                control network access.
+            </p>
+        </section>
+
+        <!-- TERRAFORM -->
+        <section id="terraform" class="section">
+            <p class="eyebrow">// 03 — INFRASTRUCTURE AS CODE</p>
+            <h2>BUILT WITH <span>TERRAFORM</span></h2>
+
+            <p class="section-intro">
+                Instead of creating each resource manually in the AWS
+                console, I organised the infrastructure into modules.
+                This separates responsibilities and makes the configuration
+                easier to understand and maintain.
+            </p>
+
+            <div class="module-list">
+                <div class="module-item">
+                    <span class="module-index">01</span>
+                    <div>
+                        <h3>VPC MODULE</h3>
+                        <p>Creates the network, two public subnets,
+                            internet gateway and routing configuration.</p>
+                    </div>
+                </div>
+
+                <div class="module-item">
+                    <span class="module-index">02</span>
+                    <div>
+                        <h3>ALB MODULE</h3>
+                        <p>Configures the load balancer, listeners,
+                            target group and network access rules.</p>
+                    </div>
+                </div>
+
+                <div class="module-item">
+                    <span class="module-index">03</span>
+                    <div>
+                        <h3>ECS MODULE</h3>
+                        <p>Defines the ECS cluster, Fargate task definition,
+                            service, desired task count and logging.</p>
+                    </div>
+                </div>
+
+                <div class="module-item">
+                    <span class="module-index">04</span>
+                    <div>
+                        <h3>ECR + IAM MODULES</h3>
+                        <p>Creates the image repository and the permissions
+                            required for ECS task execution.</p>
+                    </div>
+                </div>
+
+                <div class="module-item">
+                    <span class="module-index">05</span>
+                    <div>
+                        <h3>DNS + CERTIFICATE</h3>
+                        <p>Uses Route 53 for DNS and ACM for certificate
+                            validation and HTTPS on the load balancer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PIPELINE -->
+        <section id="pipeline" class="section">
+            <p class="eyebrow">// 04 — CONTINUOUS DELIVERY</p>
+            <h2>FROM COMMIT <span>TO CLOUD</span></h2>
+
+            <p class="section-intro">
+                GitHub Actions automates the release workflow so that
+                application changes can be built and deployed consistently.
+            </p>
+
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <span>01</span>
+                    <h3>GIT PUSH</h3>
+                    <p>Code changes are pushed to GitHub.</p>
+                </div>
+
+                <div class="pipeline-step">
+                    <span>02</span>
+                    <h3>BUILD IMAGE</h3>
+                    <p>Docker builds the application container image.</p>
+                </div>
+
+                <div class="pipeline-step">
+                    <span>03</span>
+                    <h3>PUSH TO ECR</h3>
+                    <p>The image is published to Amazon ECR using
+                        a commit-based image tag.</p>
+                </div>
+
+                <div class="pipeline-step">
+                    <span>04</span>
+                    <h3>DEPLOY</h3>
+                    <p>The deployment workflow updates the ECS service
+                        to use the intended image version.</p>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <h3>WHY USE OIDC?</h3>
+                <p>
+                    GitHub Actions uses OpenID Connect (OIDC) to obtain
+                    temporary AWS credentials through an IAM role,
+                    avoiding the need to store long-lived AWS access keys
+                    as GitHub secrets.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECURITY -->
+        <section id="security" class="section">
+            <p class="eyebrow">// 05 — SECURITY & RELIABILITY</p>
+            <h2>BUILT WITH <span>CONTROL</span></h2>
+
+            <div class="project-grid">
+                <article class="project-card">
+                    <span class="tag">NETWORK SECURITY</span>
+                    <h3>SECURITY GROUPS</h3>
+                    <p>
+                        The load balancer accepts web traffic. ECS tasks
+                        accept application traffic on port 3000 only from
+                        the load balancer's security group.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <span class="tag">ENCRYPTION</span>
+                    <h3>HTTPS + TLS</h3>
+                    <p>
+                        HTTP traffic on port 80 redirects to HTTPS on
+                        port 443, where the load balancer uses its ACM
+                        certificate.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <span class="tag">OBSERVABILITY</span>
+                    <h3>CLOUDWATCH</h3>
+                    <p>
+                        Container logs are sent to CloudWatch Logs to
+                        help investigate application behaviour and errors.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <span class="tag">HEALTH MONITORING</span>
+                    <h3>HEALTH CHECKS</h3>
+                    <p>
+                        The load balancer checks /health and uses the
+                        response to determine whether a task can receive
+                        traffic.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <span class="tag">CONTAINERS</span>
+                    <h3>DOCKER</h3>
+                    <p>
+                        Packages the Node.js application and its runtime
+                        into an image that can run consistently across
+                        environments.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <span class="tag">AVAILABILITY</span>
+                    <h3>MULTIPLE TASKS</h3>
+                    <p>
+                        A desired count of two tasks allows the service
+                        to run multiple application instances. Actual
+                        availability depends on task health and placement.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- LEARNING -->
+        <section id="learnings" class="section">
+            <p class="eyebrow">// 06 — ENGINEERING LOG</p>
+            <h2>WHAT I <span>LEARNED</span></h2>
+
+            <div class="info-panel">
+                <p>
+                    This project helped me connect several DevOps concepts
+                    into one working deployment: containerisation,
+                    Infrastructure as Code, cloud networking, IAM,
+                    HTTPS, CI/CD and application monitoring.
+                </p>
+
+                <p>
+                    It also reinforced the importance of understanding
+                    how services connect, how permissions are scoped,
+                    and how to troubleshoot issues across the application
+                    and infrastructure layers.
+                </p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>SHADOW SYSTEMS <span>//</span> LEARNING. BUILDING. DEPLOYING.</p>
+            <p>A HANDS-ON DEVOPS PORTFOLIO PROJECT</p>
+        </footer>
+    </main>
+</body>
+
+</html>
